@@ -5,16 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
-class LoginController extends Controller
+class AuthenticationController extends Controller
 {
 
     /**
      * Display the login view.
      */
-    public function index()
+    public function index(): View
     {
         return view("login");
+    }
+
+    /**
+     * Logout the user.
+     */
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+
+        Session::invalidate();
+        Session::regenerateToken();
+
+        return redirect()->route("login");
     }
 
 
@@ -31,7 +46,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('dashboard');
+            return redirect()->route('dashboard');
         }
  
         return back()->withErrors([

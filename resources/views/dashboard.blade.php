@@ -1,5 +1,3 @@
 <x-layouts.app>
-    <x-button.primary>
-        afdsafs
-    </x-button.primary>
+    asdfasdfdfa
 </x-layouts.app>
