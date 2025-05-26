@@ -9,16 +9,19 @@
                     <x-navigation.sidebar.item :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-navigation.sidebar.item>
+                    <x-navigation.sidebar.item :href="route('users.index')" :active="request()->routeIs('users.*')">
+                        Users
+                    </x-navigation.sidebar.item>
 
                     <x-navigation.sidebar.dropdown>
                         <x-slot:trigger>
                             Access
                         </x-slot:trigger>
 
-                        <x-navigation.sidebar.dropdown.item>
+                        <x-navigation.sidebar.dropdown.item :href="route('roles.index')" :active="request()->routeIs('roles.*')">
                             Roles
                         </x-navigation.sidebar.dropdown.item>
-                        <x-navigation.sidebar.dropdown.item>
+                        <x-navigation.sidebar.dropdown.item :href="route('permissions.index')" :active="request()->routeIs('permissions.*')">
                             Permissions
                         </x-navigation.sidebar.dropdown.item>
                     </x-navigation.sidebar.dropdown>
