@@ -3,11 +3,15 @@
     'description',
     'columns',
     'rows',
-    'resource' => "roles",
+    'resource' => "",
     'editable' => true,
     'deletable' => true,
     'creatable' => true,
     'details' => true,
+    'readPermission' => "NOPERMISSION",
+    'editPermission' => "NOPERMISSION",
+    'deletePermission' => "NOPERMISSION",
+    'createPermission' => "NOPERMISSION",
 ])
 
 
@@ -84,7 +88,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                         @endforeach
                         @if ($editable || $deletable || $details)
                         <td class="whitespace-nowrap px-3 py-4 text-right text-sm flex space-x-1">
-                            @if ($details)
+                            @if ($details && auth()->user()->hasPermission($readPermission))
                             <a :href="`/{{ $resource }}/${row.id}`">
                                 <x-button.info>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -94,7 +98,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                                 </x-button.info>
                             </a>
                             @endif
-                            @if ($editable)
+                            @if ($editable && auth()->user()->hasPermission($editPermission))
                             <a :href="`/{{ $resource }}/${row.id}/edit`">
                                 <x-button.warning>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -103,7 +107,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                                 </x-button.warning>
                             </a>
                             @endif
-                            @if ($deletable)
+                            @if ($deletable && auth()->user()->hasPermission($deletePermission))
                             <form :action="`/{{ $resource }}/${row.id}`" method="POST">
                                 @csrf
                                 @method('DELETE')
