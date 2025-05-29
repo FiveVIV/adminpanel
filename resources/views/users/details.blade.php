@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <x-description-list :title="$user->name" resource="users" :model="$user" delete_permission="delete_user" edit_permission="update_user">
+    <x-description-list :title="$user->name" resource="users" :model="$user" permissionSuffix="user">
         <x-description-list.item label="Name">
             {{ $user->name }}
         </x-description-list.item>
