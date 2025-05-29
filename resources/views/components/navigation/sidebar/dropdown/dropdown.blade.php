@@ -1,4 +1,10 @@
-<li x-data="{ open: false }">
+@props(["routes" => []])
+
+@php
+    $isActive = collect($routes)->contains(fn ($route) => Route::is($route));
+@endphp
+
+<li x-data="{ open: {{ $isActive ? 'true' : 'false' }} }">
     <div>
         {{-- Trigger --}}
         <button @click="open = !open" type="button" class="flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700 hover:bg-gray-50">
@@ -10,7 +16,7 @@
         {{-- /Trigger --}}
         
         {{-- Links --}}
-        <ul class="mt-1 px-2" id="sub-menu-1" x-show="open">
+        <ul class="mt-1 px-2 space-y-2" id="sub-menu-1" x-show="open">
             {{ $slot }}
         </ul>
         {{-- /Links --}}

@@ -2,8 +2,7 @@
     "resource", 
     "title", 
     "model", 
-    "edit_permission" => "avasfddsafasfefee", 
-    "delete_permission" => "avasfddsafasfefee",
+    "permissionSuffix"
 ])
 
 <div>
@@ -20,7 +19,7 @@
 
         </div>
         <div class="flex gap-2">
-            @if(auth()->user()->hasPermission($edit_permission))
+            @if(auth()->user()->hasPermission("update_$permissionSuffix"))
             <a href="/{{ $resource }}/{{ $model->id }}/edit">
                 <x-button.warning>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -30,7 +29,7 @@
             </a>
             @endif
             
-            @if(auth()->user()->hasPermission($delete_permission))
+            @if(auth()->user()->hasPermission("delete_$permissionSuffix"))
             <form action="{{ route($resource . '.destroy', $model->id) }}" method="POST">
                 @csrf
                 @method('DELETE')

@@ -12,9 +12,7 @@
     "editable" => true,
     "deletable" => true,
     "creatable" => false,
-    "editPermission" => "update_user",
-    "deletePermission" => "delete_user",
-    "readPermission" => "read_user"
+    "permissionSuffix" => "user"
     ])
 
     <div class="mt-4">

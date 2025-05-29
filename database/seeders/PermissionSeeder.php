@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use App\Helpers\PermissionSeederHelper;
+
 
 class PermissionSeeder extends Seeder
 {
@@ -12,19 +14,8 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::insert([
-            [
-                "name" => "create_user"
-            ],
-            [
-                "name" => "update_user"
-            ],
-            [
-                "name" => "delete_user"
-            ],
-            [
-                "name" => "read_user"
-            ]
-        ]);
+        PermissionSeederHelper::createStandardPermissionsFor(["user", "permission", "role"]);
+
     }
 }
+

@@ -8,10 +8,7 @@
     'deletable' => true,
     'creatable' => true,
     'details' => true,
-    'readPermission' => "NOPERMISSION",
-    'editPermission' => "NOPERMISSION",
-    'deletePermission' => "NOPERMISSION",
-    'createPermission' => "NOPERMISSION",
+    'permissionSuffix',
 ])
 
 
@@ -44,7 +41,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
             <h1 class="text-base font-semibold text-gray-900">{{ $title ?? 'Data Table' }}</h1>
             <p class="mt-2 text-sm text-gray-700">{{ $description ?? '' }}</p>
         </div>
-        @if($creatable)
+        @if($creatable && auth()->user()->hasPermission("create_$permissionSuffix"))
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <a href="{{ route($resource . '.create') }}" class="block rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500">
                 Create new
@@ -88,7 +85,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                         @endforeach
                         @if ($editable || $deletable || $details)
                         <td class="whitespace-nowrap px-3 py-4 text-right text-sm flex space-x-1">
-                            @if ($details && auth()->user()->hasPermission($readPermission))
+                            @if ($details && auth()->user()->hasPermission("read_$permissionSuffix"))
                             <a :href="`/{{ $resource }}/${row.id}`">
                                 <x-button.info>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -98,7 +95,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                                 </x-button.info>
                             </a>
                             @endif
-                            @if ($editable && auth()->user()->hasPermission($editPermission))
+                            @if ($editable && auth()->user()->hasPermission("update_$permissionSuffix"))
                             <a :href="`/{{ $resource }}/${row.id}/edit`">
                                 <x-button.warning>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -107,7 +104,7 @@ $rowArray = $rows instanceof \Illuminate\Pagination\AbstractPaginator
                                 </x-button.warning>
                             </a>
                             @endif
-                            @if ($deletable && auth()->user()->hasPermission($deletePermission))
+                            @if ($deletable && auth()->user()->hasPermission("delete_$permissionSuffix"))
                             <form :action="`/{{ $resource }}/${row.id}`" method="POST">
                                 @csrf
                                 @method('DELETE')
