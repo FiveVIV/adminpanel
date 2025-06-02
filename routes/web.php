@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\AuthenticationController;
 
 
 
@@ -16,6 +17,14 @@ Route::middleware(["auth"])->group(function () {
         return view("dashboard");
     })->name("dashboard");
 
+    Route::get("/calendar", [CalendarController::class, "index"])->name("calendar.index");
+
+    Route::name("calendar")->group(function () {
+        Route::get("/day");
+        Route::get("/week");
+        Route::get("/month");
+        Route::get("/year");
+    });
 
     Route::get("/profile", [ProfileController::class, "show"])->name("profile");
     Route::put("/profile", [ProfileController::class, "update"])->name("profile.update");

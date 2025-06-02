@@ -16,7 +16,7 @@
         {{-- /Trigger --}}
         
         {{-- Links --}}
-        <ul class="mt-1 px-2 space-y-2" id="sub-menu-1" x-show="open">
+        <ul class="mt-1 mx-2 space-y-2 border-l-2" id="sub-menu-1" x-show="open" style="display: none;">
             {{ $slot }}
         </ul>
         {{-- /Links --}}

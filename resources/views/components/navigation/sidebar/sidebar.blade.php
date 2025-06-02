@@ -9,6 +9,9 @@
                     <x-navigation.sidebar.item :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-navigation.sidebar.item>
+                    <x-navigation.sidebar.item :href="route('calendar.index')" :active="request()->routeIs('calendar.*')">
+                        Calendar
+                    </x-navigation.sidebar.item>
                     <x-navigation.sidebar.item :href="route('users.index')" :active="request()->routeIs('users.*')">
                         Users
                     </x-navigation.sidebar.item>
